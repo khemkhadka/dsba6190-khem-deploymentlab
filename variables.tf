@@ -45,3 +45,4 @@ variable "class_name" {
   type        = string
   default     = "dsba6190"
 }
+
