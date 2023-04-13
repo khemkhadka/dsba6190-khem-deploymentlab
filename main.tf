@@ -34,7 +34,7 @@ resource "azurerm_resource_group" "rg" {
 // Storage Account
 
 resource "azurerm_storage_account" "storage" {
-  name                     = "${var.class_name}${var.student_name}${var.environment}${random_integer.deployment_id_suffix.result}st"
+  name                     = "${var.student_name}${var.environment}${random_integer.deployment_id_suffix.result}st"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
@@ -150,7 +150,7 @@ resource "azurerm_cognitive_account" "cs" {
 // Azure Synapse -- Khem 
 
 resource "azurerm_storage_account" "gen2storage" {
-  name                     = "${var.class_name}-${var.student_name}-${var.environment}-${random_integer.deployment_id_suffix.result}-st2"
+  name                     = "${var.student_name}-${var.environment}-${random_integer.deployment_id_suffix.result}-st2"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
@@ -160,7 +160,7 @@ resource "azurerm_storage_account" "gen2storage" {
 }
 
 resource "azurerm_storage_data_lake_gen2_filesystem" "gen2storage" {
-  name               = "${var.class_name}-${var.student_name}-${var.environment}-${random_integer.deployment_id_suffix.result}-st2"
+  name               = "${var.student_name}-${var.environment}-${random_integer.deployment_id_suffix.result}-st2"
   storage_account_id = azurerm_storage_account.gen2storage.id
 
   properties = {
