@@ -150,7 +150,7 @@ resource "azurerm_cognitive_account" "cs" {
 // Azure Synapse -- Khem 
 
 resource "azurerm_storage_account" "gen2storage" {
-  name                     = "${var.student_name}-${var.environment}-${random_integer.deployment_id_suffix.result}_st2"
+  name                     = "${var.student_name}${var.environment}${random_integer.deployment_id_suffix.result}st2"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
