@@ -65,13 +65,13 @@ resource "azurerm_key_vault" "kv" {
   sku_name            = "premium"
 }
 
-resource "azurerm_storage_account" "st" {
-  name                     = "${var.student_name}-${var.environment}-${random_integer.deployment_id_suffix.result}-st"
-  location                 = azurerm_resource_group.rg.location
-  resource_group_name      = azurerm_resource_group.rg.name
-  account_tier             = "Standard"
-  account_replication_type = "GRS"
-}
+// resource "azurerm_storage_account" "st" {
+// name                     = "${var.student_name}-${var.environment}-${random_integer.deployment_id_suffix.result}-st"
+// location                 = azurerm_resource_group.rg.location
+//resource_group_name      = azurerm_resource_group.rg.name
+//account_tier             = "Standard"
+//account_replication_type = "GRS"
+//}
 
 resource "azurerm_machine_learning_workspace" "mlw" {
   name                    = "${var.class_name}-${var.student_name}-${var.environment}-${random_integer.deployment_id_suffix.result}-mlw"
