@@ -79,7 +79,7 @@ resource "azurerm_machine_learning_workspace" "mlw" {
   resource_group_name     = azurerm_resource_group.rg.name
   application_insights_id = azurerm_application_insights.appi.id
   key_vault_id            = azurerm_key_vault.kv.id
-  storage_account_id      = azurerm_storage_account.rg.id
+  storage_account_id      = azurerm_storage_account.storage.id
 
   identity {
     type = "SystemAssigned"
@@ -149,11 +149,29 @@ resource "azurerm_cognitive_account" "cs" {
 
 // Azure Synapse -- Khem 
 
+resource "azurerm_storage_account" "gen2storage" {
+  name                     = "${var.class_name}-${var.student_name}-${var.environment}-${random_integer.deployment_id_suffix.result}-st2"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  account_kind             = "StorageV2"
+  is_hns_enabled           = "true"
+}
+
+resource "azurerm_storage_data_lake_gen2_filesystem" "gen2storage" {
+  name               = "${var.class_name}-${var.student_name}-${var.environment}-${random_integer.deployment_id_suffix.result}-st2"
+  storage_account_id = azurerm_storage_account.gen2storage.id
+
+  properties = {
+    hello = "aGVsbG8="
+  }
+}
 resource "azurerm_synapse_workspace" "asw" {
   name                                 = "${var.class_name}-${var.student_name}-${var.environment}-${random_integer.deployment_id_suffix.result}-asw"
   resource_group_name                  = azurerm_resource_group.rg.name
   location                             = azurerm_resource_group.rg.location
-  storage_data_lake_gen2_filesystem_id = azurerm_storage_data_lake_gen2_filesystem.storage.id
+  storage_data_lake_gen2_filesystem_id = azurerm_storage_data_lake_gen2_filesystem.gen2storage.id
   sql_administrator_login              = "sqladminuser"
   sql_administrator_login_password     = "H@Sh1CoR3!"
 
