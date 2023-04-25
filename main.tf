@@ -21,6 +21,8 @@ resource "random_integer" "deployment_id_suffix" {
   max = 999
 }
 
+
+
 // Resource Group
 
 resource "azurerm_resource_group" "rg" {
