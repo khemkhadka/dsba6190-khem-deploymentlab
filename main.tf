@@ -184,3 +184,5 @@ resource "azurerm_synapse_workspace" "asw" {
     Env = "production"
   }
 }
+
+
